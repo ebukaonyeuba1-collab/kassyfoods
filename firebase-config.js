@@ -16,4 +16,4 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 
 // ⚠️ Change this to YOUR real email — this is the only email that can access admin.html
-export const ADMIN_EMAIL = "admin@kassyfoods.com";
+export const ADMIN_EMAIL = "ebukaonyeuba1@gmail.com";
