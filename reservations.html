@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reservations — Kassy Foods</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --cream:#F5EFE6; --cream-dark:#EDE3D4; --brown:#6B4226; --brown-light:#9C6B4A; --terracotta:#C1714F; --terracotta-light:#D4937A; --dark:#2A1810; --text:#3D2314; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Jost',sans-serif; background:var(--cream); color:var(--text); }
+    nav { position:fixed; top:0; width:100%; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:1.4rem 4rem; background:rgba(245,239,230,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(107,66,38,0.1); }
+    .nav-logo { font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:600; color:var(--brown); text-decoration:none; }
+    .nav-logo span { color:var(--terracotta); font-style:italic; }
+    .nav-links { display:flex; gap:2.5rem; list-style:none; }
+    .nav-links a { font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text); text-decoration:none; transition:color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--terracotta); }
+    .nav-cta { background:var(--brown) !important; color:var(--cream) !important; padding:0.6rem 1.5rem; border-radius:2px; }
+
+    .res-wrap { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; }
+    .res-left { background:var(--dark); padding:8rem 4rem 4rem; display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden; }
+    .res-left::before { content:''; position:absolute; top:-30%; right:-30%; width:80%; height:80%; border-radius:50%; background:rgba(193,113,79,0.1); }
+    .res-left-eyebrow { font-size:0.75rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--terracotta-light); margin-bottom:1.5rem; position:relative; }
+    .res-left h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(2.5rem,4vw,3.5rem); font-weight:300; color:var(--cream); line-height:1.2; position:relative; margin-bottom:1.5rem; }
+    .res-left h1 em { font-style:italic; color:var(--terracotta-light); }
+    .res-left p { font-size:0.9rem; color:rgba(245,239,230,0.5); line-height:1.8; position:relative; max-width:380px; margin-bottom:3rem; }
+    .info-items { position:relative; }
+    .info-item { display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.5rem; }
+    .info-icon { font-size:1.2rem; margin-top:0.1rem; }
+    .info-label { font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--terracotta-light); margin-bottom:0.2rem; }
+    .info-value { font-size:0.9rem; color:rgba(245,239,230,0.7); }
+
+    .res-right { padding:8rem 4rem 4rem; display:flex; flex-direction:column; justify-content:center; }
+    .res-right h2 { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; color:var(--dark); margin-bottom:2rem; }
+    .res-right h2 em { font-style:italic; color:var(--terracotta); }
+
+    .form-group { margin-bottom:1.2rem; }
+    .form-group label { display:block; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--brown); margin-bottom:0.45rem; }
+    .form-group input, .form-group select, .form-group textarea {
+      width:100%; padding:0.85rem 1rem;
+      background:white; border:1px solid var(--cream-dark);
+      font-family:'Jost',sans-serif; font-size:0.92rem;
+      color:var(--text); outline:none; transition:border-color 0.3s; border-radius:2px;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--terracotta); }
+    .form-group input::placeholder, .form-group textarea::placeholder { color:#C5B8A8; }
+    .form-group textarea { resize:vertical; min-height:90px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+
+    .btn-submit { width:100%; background:var(--brown); color:var(--cream); padding:1rem; border:none; cursor:pointer; font-family:'Jost',sans-serif; font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; margin-top:0.5rem; transition:background 0.3s; border-radius:2px; }
+    .btn-submit:hover { background:var(--terracotta); }
+    .btn-submit:disabled { opacity:0.6; cursor:not-allowed; }
+
+    .success-msg { background:rgba(76,175,80,0.08); border:1px solid #A5D6A7; color:#2E7D32; padding:1rem; font-size:0.88rem; margin-bottom:1.2rem; border-radius:2px; display:none; }
+    .error-msg { background:rgba(193,113,79,0.1); border:1px solid var(--terracotta); color:var(--terracotta); padding:0.8rem 1rem; font-size:0.85rem; margin-bottom:1rem; border-radius:2px; display:none; }
+
+    .login-note { margin-top:1.2rem; text-align:center; font-size:0.82rem; color:var(--brown-light); }
+    .login-note a { color:var(--terracotta); text-decoration:none; }
+
+    footer { background:var(--dark); padding:3rem 4rem; display:grid; grid-template-columns:1fr 1fr 1fr; gap:2rem; }
+    .footer-col h4 { font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--terracotta-light); margin-bottom:1rem; }
+    .footer-col a { display:block; font-size:0.85rem; color:rgba(245,239,230,0.55); text-decoration:none; margin-bottom:0.5rem; }
+    .footer-brand .logo { font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--cream); margin-bottom:0.8rem; display:block; }
+    .footer-brand .logo span { color:var(--terracotta-light); font-style:italic; }
+    .footer-brand p { font-size:0.82rem; color:rgba(245,239,230,0.4); }
+    .footer-bottom { background:var(--dark); padding:1.2rem 4rem; border-top:1px solid rgba(245,239,230,0.07); text-align:center; font-size:0.78rem; color:rgba(245,239,230,0.25); }
+
+    @media(max-width:900px) {
+      nav { padding:1rem 2rem; }
+      .nav-links { display:none; }
+      .res-wrap { grid-template-columns:1fr; }
+      .res-left { padding:7rem 2rem 3rem; }
+      .res-right { padding:3rem 2rem; }
+      .form-row { grid-template-columns:1fr; }
+      footer { grid-template-columns:1fr; padding:2rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">Kassy <span>Foods</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="reservations.html" class="active">Reserve</a></li>
+      <li><a href="login.html" class="nav-cta">Sign In</a></li>
+    </ul>
+  </nav>
+
+  <div class="res-wrap">
+    <div class="res-left">
+      <div class="res-left-eyebrow">Book Your Experience</div>
+      <h1>Reserve<br>Your <em>Table</em></h1>
+      <p>Whether it's a romantic dinner, a family celebration, or a business lunch — we'll make it unforgettable.</p>
+      <div class="info-items">
+        <div class="info-item">
+          <span class="info-icon">🕐</span>
+          <div><div class="info-label">Opening Hours</div><div class="info-value">Mon–Fri: 12PM – 10PM<br>Sat–Sun: 11AM – 11PM</div></div>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">📍</span>
+          <div><div class="info-label">Location</div><div class="info-value">Victoria Island, Lagos<br>Nigeria</div></div>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">📞</span>
+          <div><div class="info-label">Phone</div><div class="info-value">+234 800 000 0000</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="res-right">
+      <h2>Make a <em>Reservation</em></h2>
+
+      <div class="success-msg" id="successMsg">✓ Your reservation has been submitted! We'll confirm via email shortly.</div>
+      <div class="error-msg" id="errorMsg"></div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name *</label>
+          <input type="text" id="firstName" placeholder="Amara" />
+        </div>
+        <div class="form-group">
+          <label>Last Name *</label>
+          <input type="text" id="lastName" placeholder="Okafor" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="email" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" id="phone" placeholder="+234 800 000 0000" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Date *</label>
+          <input type="date" id="date" />
+        </div>
+        <div class="form-group">
+          <label>Time *</label>
+          <select id="time">
+            <option value="">Select time</option>
+            <option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option>
+            <option>6:00 PM</option><option>7:00 PM</option><option>8:00 PM</option><option>9:00 PM</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Number of Guests *</label>
+          <select id="guests">
+            <option value="">Select</option>
+            <option>1</option><option>2</option><option>3</option>
+            <option>4</option><option>5</option><option>6+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Dining Type</label>
+          <select id="type">
+            <option>Fine Dining</option><option>Private Room</option><option>Bar Seating</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Special Requests</label>
+        <textarea id="notes" placeholder="Dietary requirements, occasion, seating preferences, allergies..."></textarea>
+      </div>
+
+      <button class="btn-submit" id="resBtn" onclick="submitReservation()">Confirm Reservation</button>
+
+      <p class="login-note">
+        Have an account? <a href="login.html">Sign in</a> to manage reservations from your dashboard.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-brand"><span class="logo">Kassy <span>Foods</span></span><p>Fine dining elevated.</p></div>
+    <div class="footer-col"><h4>Explore</h4><a href="menu.html">Our Menu</a><a href="about.html">About Us</a><a href="reservations.html">Reservations</a></div>
+    <div class="footer-col"><h4>Account</h4><a href="login.html">Sign In</a><a href="signup.html">Create Account</a></div>
+  </footer>
+  <div class="footer-bottom">© 2024 Kassy Foods. All rights reserved.</div>
+
+  <script type="module">
+    import { db } from './firebase-config.js';
+    import { addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+    window.submitReservation = async function() {
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      const guests = document.getElementById('guests').value;
+      const type = document.getElementById('type').value;
+      const notes = document.getElementById('notes').value;
+      const errorMsg = document.getElementById('errorMsg');
+      const successMsg = document.getElementById('successMsg');
+      const btn = document.getElementById('resBtn');
+
+      errorMsg.style.display = 'none'; successMsg.style.display = 'none';
+
+      if (!firstName || !lastName || !email || !date || !time || !guests) {
+        errorMsg.textContent = 'Please fill in all required fields.';
+        errorMsg.style.display = 'block'; return;
+      }
+
+      btn.disabled = true; btn.textContent = 'Submitting...';
+
+      try {
+        await addDoc(collection(db, 'reservations'), {
+          userName: `${firstName} ${lastName}`,
+          userEmail: email, phone, date, time, guests, type, notes,
+          userId: null, status: 'pending', createdAt: serverTimestamp()
+        });
+        successMsg.style.display = 'block';
+        btn.textContent = 'Reservation Submitted ✓';
+        document.getElementById('firstName').value = '';
+        document.getElementById('lastName').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('date').value = '';
+        document.getElementById('notes').value = '';
+      } catch(e) {
+        errorMsg.textContent = 'Could not submit reservation. Please try again.';
+        errorMsg.style.display = 'block';
+        btn.disabled = false; btn.textContent = 'Confirm Reservation';
+      }
+    }
+  </script>
+</body>
+</html>

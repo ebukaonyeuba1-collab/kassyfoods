@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Dashboard — Kassy Foods</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream: #F5EFE6; --cream-dark: #EDE3D4;
+      --brown: #6B4226; --brown-light: #9C6B4A;
+      --terracotta: #C1714F; --terracotta-light: #D4937A;
+      --dark: #2A1810; --text: #3D2314;
+      --sidebar: 260px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text); display: flex; min-height: 100vh; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: var(--sidebar); background: var(--dark);
+      position: fixed; top: 0; left: 0; height: 100vh;
+      display: flex; flex-direction: column;
+      padding: 2rem 0; overflow-y: auto;
+    }
+    .sidebar-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; color: var(--cream);
+      padding: 0 1.8rem; margin-bottom: 2.5rem;
+      text-decoration: none; display: block;
+    }
+    .sidebar-logo span { color: var(--terracotta-light); font-style: italic; }
+    .sidebar-user {
+      padding: 1.2rem 1.8rem; margin-bottom: 1.5rem;
+      border-top: 1px solid rgba(245,239,230,0.08);
+      border-bottom: 1px solid rgba(245,239,230,0.08);
+    }
+    .sidebar-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--terracotta); color: var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;
+      margin-bottom: 0.6rem;
+    }
+    .sidebar-name { font-size: 0.9rem; color: var(--cream); font-weight: 500; }
+    .sidebar-email { font-size: 0.75rem; color: rgba(245,239,230,0.4); margin-top: 0.2rem; }
+
+    .sidebar-nav { flex: 1; padding: 0 1rem; }
+    .nav-section-label {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(245,239,230,0.3); padding: 0 0.8rem; margin: 1rem 0 0.5rem;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 0.8rem;
+      padding: 0.7rem 0.8rem; border-radius: 6px;
+      cursor: pointer; transition: background 0.2s;
+      color: rgba(245,239,230,0.6); font-size: 0.88rem;
+      text-decoration: none; margin-bottom: 0.2rem;
+    }
+    .nav-item:hover { background: rgba(245,239,230,0.05); color: var(--cream); }
+    .nav-item.active { background: rgba(193,113,79,0.15); color: var(--terracotta-light); }
+    .nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+
+    .sidebar-footer {
+      padding: 1.5rem 1.8rem;
+      border-top: 1px solid rgba(245,239,230,0.08);
+    }
+    .logout-btn {
+      display: flex; align-items: center; gap: 0.8rem;
+      font-size: 0.85rem; color: rgba(245,239,230,0.4);
+      cursor: pointer; background: none; border: none;
+      font-family: 'Jost', sans-serif; transition: color 0.2s;
+    }
+    .logout-btn:hover { color: var(--terracotta-light); }
+
+    /* MAIN */
+    .main {
+      margin-left: var(--sidebar); flex: 1;
+      padding: 2.5rem 3rem;
+    }
+    .main-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 2rem;
+    }
+    .main-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 300; color: var(--dark);
+    }
+    .main-header h1 em { font-style: italic; color: var(--terracotta); }
+    .main-date { font-size: 0.8rem; color: var(--brown-light); }
+
+    /* TABS */
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .tab {
+      padding: 0.5rem 1.2rem; cursor: pointer;
+      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      border: 1px solid var(--cream-dark); background: white;
+      color: var(--brown-light); transition: all 0.2s; border-radius: 2px;
+    }
+    .tab.active { background: var(--brown); color: var(--cream); border-color: var(--brown); }
+    .tab:hover:not(.active) { border-color: var(--brown-light); }
+
+    /* TAB PANELS */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* STAT CARDS */
+    .stat-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-bottom: 2rem; }
+    .stat-card {
+      background: white; padding: 1.5rem; border-radius: 4px;
+      border: 1px solid var(--cream-dark);
+    }
+    .stat-card-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--brown-light); margin-bottom: 0.5rem; }
+    .stat-card-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 400; color: var(--dark);
+    }
+    .stat-card-sub { font-size: 0.75rem; color: var(--brown-light); margin-top: 0.3rem; }
+    .stat-card-accent { color: var(--terracotta); }
+
+    /* LOYALTY */
+    .loyalty-bar-wrap { margin-top: 0.8rem; }
+    .loyalty-bar-bg { background: var(--cream-dark); border-radius: 10px; height: 6px; }
+    .loyalty-bar-fill { background: var(--terracotta); border-radius: 10px; height: 6px; transition: width 0.8s; }
+
+    /* RESERVATION FORM */
+    .card {
+      background: white; border-radius: 4px;
+      border: 1px solid var(--cream-dark); padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .card h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 400; color: var(--dark);
+      margin-bottom: 1.5rem;
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 0; }
+    .form-group label { display: block; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brown); margin-bottom: 0.4rem; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 0.75rem 0.9rem;
+      background: var(--cream); border: 1px solid var(--cream-dark);
+      font-family: 'Jost', sans-serif; font-size: 0.9rem;
+      color: var(--text); outline: none; transition: border-color 0.3s;
+      border-radius: 2px;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--terracotta); }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .form-full { grid-column: 1 / -1; }
+    .btn-small {
+      background: var(--brown); color: var(--cream);
+      padding: 0.7rem 1.8rem; border: none; cursor: pointer;
+      font-family: 'Jost', sans-serif; font-size: 0.78rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      border-radius: 2px; transition: background 0.3s; margin-top: 1rem;
+    }
+    .btn-small:hover { background: var(--terracotta); }
+
+    /* TABLE */
+    .data-table { width: 100%; border-collapse: collapse; }
+    .data-table th {
+      font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--brown-light); padding: 0.8rem 1rem; text-align: left;
+      border-bottom: 1px solid var(--cream-dark); background: var(--cream);
+    }
+    .data-table td { padding: 1rem; font-size: 0.88rem; border-bottom: 1px solid var(--cream-dark); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .badge {
+      display: inline-block; padding: 0.25rem 0.7rem;
+      border-radius: 20px; font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    .badge-success { background: rgba(76,175,80,0.1); color: #388E3C; }
+    .badge-pending { background: rgba(255,152,0,0.1); color: #E65100; }
+    .badge-cancelled { background: rgba(193,113,79,0.1); color: var(--terracotta); }
+
+    /* MENU GRID */
+    .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .menu-card {
+      background: white; border: 1px solid var(--cream-dark);
+      border-radius: 4px; overflow: hidden;
+    }
+    .menu-card-img {
+      height: 120px; background: linear-gradient(135deg, var(--cream-dark), var(--terracotta-light));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+    }
+    .menu-card-body { padding: 1rem; }
+    .menu-card-cat { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.3rem; }
+    .menu-card-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--dark); margin-bottom: 0.3rem; }
+    .menu-card-price { font-size: 0.9rem; font-weight: 500; color: var(--brown); }
+
+    /* LOYALTY PAGE */
+    .loyalty-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    .tier-card {
+      background: white; border: 1px solid var(--cream-dark);
+      border-radius: 4px; padding: 1.5rem; text-align: center;
+    }
+    .tier-card.active-tier { border-color: var(--terracotta); background: rgba(193,113,79,0.04); }
+    .tier-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .tier-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--dark); }
+    .tier-range { font-size: 0.75rem; color: var(--brown-light); margin-top: 0.3rem; }
+    .tier-perks { margin-top: 1rem; font-size: 0.8rem; color: var(--brown-light); line-height: 1.8; text-align: left; }
+
+    #loadingScreen {
+      position: fixed; inset: 0; background: var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999;
+    }
+    .loading-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; color: var(--brown); animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    @media (max-width: 1100px) {
+      .stat-cards { grid-template-columns: repeat(2, 1fr); }
+      .menu-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .main { margin-left: 0; padding: 1.5rem; }
+      .stat-cards { grid-template-columns: 1fr 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="loadingScreen">
+  <div class="loading-logo">Kassy <em style="color:var(--terracotta);font-style:italic;">Foods</em></div>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <a href="index.html" class="sidebar-logo">Kassy <span>Foods</span></a>
+  <div class="sidebar-user">
+    <div class="sidebar-avatar" id="sidebarAvatar">?</div>
+    <div class="sidebar-name" id="sidebarName">Loading...</div>
+    <div class="sidebar-email" id="sidebarEmail"></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a class="nav-item active" onclick="showTab('overview')">
+      <span class="nav-icon">🏠</span> Overview
+    </a>
+    <a class="nav-item" onclick="showTab('reservations')">
+      <span class="nav-icon">📅</span> Reservations
+    </a>
+    <a class="nav-item" onclick="showTab('orders')">
+      <span class="nav-icon">🍽️</span> Order History
+    </a>
+    <a class="nav-item" onclick="showTab('loyalty')">
+      <span class="nav-icon">⭐</span> Loyalty Rewards
+    </a>
+    <a class="nav-item" onclick="showTab('menu')">
+      <span class="nav-icon">📋</span> Browse Menu
+    </a>
+    <div class="nav-section-label">Account</div>
+    <a class="nav-item" onclick="showTab('profile')">
+      <span class="nav-icon">👤</span> My Profile
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="logout-btn" onclick="handleLogout()">
+      <span>🚪</span> Sign Out
+    </button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="main-header">
+    <h1>Welcome back, <em id="firstName">Guest</em></h1>
+    <div class="main-date" id="currentDate"></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('overview')">Overview</div>
+    <div class="tab" onclick="showTab('reservations')">Reservations</div>
+    <div class="tab" onclick="showTab('orders')">Orders</div>
+    <div class="tab" onclick="showTab('loyalty')">Loyalty</div>
+    <div class="tab" onclick="showTab('menu')">Menu</div>
+    <div class="tab" onclick="showTab('profile')">Profile</div>
+  </div>
+
+  <!-- OVERVIEW TAB -->
+  <div class="tab-panel active" id="tab-overview">
+    <div class="stat-cards">
+      <div class="stat-card">
+        <div class="stat-card-label">Loyalty Points</div>
+        <div class="stat-card-value stat-card-accent" id="loyaltyPoints">0</div>
+        <div class="stat-card-sub">Points earned</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Total Orders</div>
+        <div class="stat-card-value" id="totalOrders">0</div>
+        <div class="stat-card-sub">All time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Reservations</div>
+        <div class="stat-card-value" id="totalReservations">0</div>
+        <div class="stat-card-sub">Upcoming & past</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Member Since</div>
+        <div class="stat-card-value" style="font-size:1.2rem;" id="memberSince">—</div>
+        <div class="stat-card-sub">Dining member</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🎯 Loyalty Progress</h2>
+      <p style="font-size:0.85rem; color:var(--brown-light); margin-bottom:1rem;">You're on the <strong id="currentTier">Bronze</strong> tier. Earn more points to unlock better rewards.</p>
+      <div class="loyalty-bar-wrap">
+        <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--brown-light); margin-bottom:0.4rem;">
+          <span id="pointsLabel">0 pts</span>
+          <span id="nextTierLabel">500 pts to Silver</span>
+        </div>
+        <div class="loyalty-bar-bg">
+          <div class="loyalty-bar-fill" id="loyaltyBarFill" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📅 Quick Reserve</h2>
+      <p style="font-size:0.85rem; color:var(--brown-light); margin-bottom:1.5rem;">Book a table in seconds.</p>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="quickDate" />
+        </div>
+        <div class="form-group">
+          <label>Time</label>
+          <select id="quickTime">
+            <option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option>
+            <option>6:00 PM</option><option>7:00 PM</option><option>8:00 PM</option><option>9:00 PM</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Guests</label>
+          <select id="quickGuests">
+            <option>1</option><option>2</option><option>3</option>
+            <option>4</option><option>5</option><option>6+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Dining Type</label>
+          <select id="quickType">
+            <option>Fine Dining</option><option>Private Room</option><option>Bar Seating</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-small" onclick="makeReservation()">Book Table</button>
+    </div>
+  </div>
+
+  <!-- RESERVATIONS TAB -->
+  <div class="tab-panel" id="tab-reservations">
+    <div class="card">
+      <h2>📅 Book a Table</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="resDate" />
+        </div>
+        <div class="form-group">
+          <label>Time</label>
+          <select id="resTime">
+            <option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option>
+            <option>6:00 PM</option><option>7:00 PM</option><option>8:00 PM</option><option>9:00 PM</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Number of Guests</label>
+          <select id="resGuests">
+            <option>1</option><option>2</option><option>3</option>
+            <option>4</option><option>5</option><option>6+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Dining Type</label>
+          <select id="resType">
+            <option>Fine Dining</option><option>Private Room</option><option>Bar Seating</option>
+          </select>
+        </div>
+        <div class="form-group form-full">
+          <label>Special Requests</label>
+          <textarea id="resNotes" placeholder="Dietary requirements, occasion, seating preferences..."></textarea>
+        </div>
+      </div>
+      <button class="btn-small" onclick="makeReservation()">Confirm Reservation</button>
+    </div>
+
+    <div class="card">
+      <h2>My Reservations</h2>
+      <table class="data-table" id="reservationsTable">
+        <thead>
+          <tr>
+            <th>Date</th><th>Time</th><th>Guests</th><th>Type</th><th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="reservationRows">
+          <tr><td colspan="5" style="text-align:center; color:var(--brown-light); padding:2rem;">No reservations yet.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ORDERS TAB -->
+  <div class="tab-panel" id="tab-orders">
+    <div class="card">
+      <h2>🍽️ Order History</h2>
+      <table class="data-table">
+        <thead>
+          <tr><th>Date</th><th>Items</th><th>Total</th><th>Points Earned</th><th>Status</th></tr>
+        </thead>
+        <tbody id="orderRows">
+          <tr><td colspan="5" style="text-align:center; color:var(--brown-light); padding:2rem;">No orders yet. Visit us to start earning rewards!</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- LOYALTY TAB -->
+  <div class="tab-panel" id="tab-loyalty">
+    <div class="stat-cards" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="stat-card">
+        <div class="stat-card-label">Current Points</div>
+        <div class="stat-card-value stat-card-accent" id="loyaltyPoints2">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Current Tier</div>
+        <div class="stat-card-value" style="font-size:1.4rem;" id="currentTier2">Bronze</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Points to Next Tier</div>
+        <div class="stat-card-value" style="font-size:1.4rem;" id="pointsToNext">500</div>
+      </div>
+    </div>
+    <div class="loyalty-tiers">
+      <div class="tier-card active-tier" id="tier-bronze">
+        <div class="tier-icon">🥉</div>
+        <div class="tier-name">Bronze</div>
+        <div class="tier-range">0 – 499 points</div>
+        <div class="tier-perks">✓ 1 point per ₦100 spent<br>✓ Birthday discount (10%)<br>✓ Early menu access</div>
+      </div>
+      <div class="tier-card" id="tier-silver">
+        <div class="tier-icon">🥈</div>
+        <div class="tier-name">Silver</div>
+        <div class="tier-range">500 – 1999 points</div>
+        <div class="tier-perks">✓ 1.5 pts per ₦100 spent<br>✓ Free dessert monthly<br>✓ Priority reservations</div>
+      </div>
+      <div class="tier-card" id="tier-gold">
+        <div class="tier-icon">🥇</div>
+        <div class="tier-name">Gold</div>
+        <div class="tier-range">2000+ points</div>
+        <div class="tier-perks">✓ 2 pts per ₦100 spent<br>✓ Complimentary aperitif<br>✓ Dedicated host</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENU TAB -->
+  <div class="tab-panel" id="tab-menu">
+    <div class="card">
+      <h2>📋 Our Menu</h2>
+      <div class="menu-grid">
+        <div class="menu-card">
+          <div class="menu-card-img">🥩</div>
+          <div class="menu-card-body">
+            <div class="menu-card-cat">Grill</div>
+            <div class="menu-card-name">Wagyu Tenderloin</div>
+            <div class="menu-card-price">₦45,000</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-img" style="background:linear-gradient(135deg,#9C6B4A,#C1714F)">🦞</div>
+          <div class="menu-card-body">
+            <div class="menu-card-cat">Seafood</div>
+            <div class="menu-card-name">Lobster Thermidor</div>
+            <div class="menu-card-price">₦32,000</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-img" style="background:linear-gradient(135deg,#6B4226,#9C6B4A)">🍖</div>
+          <div class="menu-card-body">
+            <div class="menu-card-cat">Signature</div>
+            <div class="menu-card-name">Oxtail Ragu</div>
+            <div class="menu-card-price">₦18,500</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-img" style="background:linear-gradient(135deg,#C1714F,#D4937A)">🥗</div>
+          <div class="menu-card-body">
+            <div class="menu-card-cat">Starter</div>
+            <div class="menu-card-name">Truffle Caesar Salad</div>
+            <div class="menu-card-price">₦8,500</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-img" style="background:linear-gradient(135deg,#EDE3D4,#C1714F)">🍮</div>
+          <div class="menu-card-body">
+            <div class="menu-card-cat">Dessert</div>
+            <div class="menu-card-name">Crème Brûlée</div>
+            <div class="menu-card-price">₦6,000</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-img" style="background:linear-gradient(135deg,#9C6B4A,#6B4226)">🍷</div>
+          <div class="menu-card-body">
+            <div class="menu-card-cat">Drinks</div>
+            <div class="menu-card-name">Curated Wine Pairing</div>
+            <div class="menu-card-price">₦12,000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE TAB -->
+  <div class="tab-panel" id="tab-profile">
+    <div class="card">
+      <h2>👤 My Profile</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="profileFirst" />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="profileLast" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="profileEmail" disabled style="opacity:0.6;" />
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" id="profilePhone" />
+        </div>
+        <div class="form-group">
+          <label>Dining Preference</label>
+          <select id="profilePref">
+            <option value="fine-dining">Fine Dining</option>
+            <option value="private">Private Dining</option>
+            <option value="casual">Casual Dining</option>
+            <option value="takeout">Takeout / Delivery</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-small" onclick="saveProfile()">Save Changes</button>
+      <p id="profileMsg" style="font-size:0.8rem; color:var(--terracotta); margin-top:0.8rem; display:none;"></p>
+    </div>
+  </div>
+
+</main>
+
+<script type="module">
+  import { auth, db } from './firebase-config.js';
+  import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+  import { doc, getDoc, updateDoc, collection, addDoc, query, where, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+  let currentUser = null;
+  let userData = null;
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) { window.location.href = 'login.html'; return; }
+    currentUser = user;
+
+    const snap = await getDoc(doc(db, 'users', user.uid));
+    userData = snap.data();
+
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('firstName').textContent = userData.firstName || 'Guest';
+    document.getElementById('sidebarName').textContent = `${userData.firstName} ${userData.lastName}`;
+    document.getElementById('sidebarEmail').textContent = userData.email;
+    document.getElementById('sidebarAvatar').textContent = (userData.firstName || 'G')[0].toUpperCase();
+    document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-NG', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+    // Stats
+    document.getElementById('loyaltyPoints').textContent = userData.loyaltyPoints || 0;
+    document.getElementById('loyaltyPoints2').textContent = userData.loyaltyPoints || 0;
+    document.getElementById('totalOrders').textContent = userData.totalOrders || 0;
+    document.getElementById('memberSince').textContent = userData.createdAt?.toDate ? userData.createdAt.toDate().getFullYear() : '2024';
+
+    // Loyalty tier
+    const pts = userData.loyaltyPoints || 0;
+    let tier = 'Bronze', nextPts = 500, progress = Math.min((pts/500)*100, 100);
+    if (pts >= 2000) { tier = 'Gold'; nextPts = 0; progress = 100; }
+    else if (pts >= 500) { tier = 'Silver'; nextPts = 2000 - pts; progress = Math.min(((pts-500)/1500)*100, 100); }
+    else { nextPts = 500 - pts; }
+
+    document.getElementById('currentTier').textContent = tier;
+    document.getElementById('currentTier2').textContent = tier;
+    document.getElementById('pointsToNext').textContent = nextPts || '—';
+    document.getElementById('pointsLabel').textContent = `${pts} pts`;
+    document.getElementById('nextTierLabel').textContent = nextPts ? `${nextPts} pts to ${tier === 'Bronze' ? 'Silver' : 'Gold'}` : 'Max Tier 🎉';
+    document.getElementById('loyaltyBarFill').style.width = `${progress}%`;
+
+    // Profile
+    document.getElementById('profileFirst').value = userData.firstName || '';
+    document.getElementById('profileLast').value = userData.lastName || '';
+    document.getElementById('profileEmail').value = userData.email || '';
+    document.getElementById('profilePhone').value = userData.phone || '';
+    document.getElementById('profilePref').value = userData.preference || 'fine-dining';
+
+    // Load reservations
+    loadReservations(user.uid);
+  });
+
+  async function loadReservations(uid) {
+    try {
+      const q = query(collection(db, 'reservations'), where('userId', '==', uid));
+      const snap = await getDocs(q);
+      const tbody = document.getElementById('reservationRows');
+      const count = snap.size;
+      document.getElementById('totalReservations').textContent = count;
+      if (count === 0) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--brown-light);padding:2rem;">No reservations yet.</td></tr>'; return; }
+      tbody.innerHTML = '';
+      snap.forEach(d => {
+        const r = d.data();
+        tbody.innerHTML += `<tr>
+          <td>${r.date}</td><td>${r.time}</td><td>${r.guests}</td><td>${r.type}</td>
+          <td><span class="badge badge-pending">Pending</span></td>
+        </tr>`;
+      });
+    } catch(e) {}
+  }
+
+  window.makeReservation = async function() {
+    if (!currentUser) return;
+    const date = document.getElementById('resDate')?.value || document.getElementById('quickDate')?.value;
+    const time = document.getElementById('resTime')?.value || document.getElementById('quickTime')?.value;
+    const guests = document.getElementById('resGuests')?.value || document.getElementById('quickGuests')?.value;
+    const type = document.getElementById('resType')?.value || document.getElementById('quickType')?.value;
+    const notes = document.getElementById('resNotes')?.value || '';
+
+    if (!date) { alert('Please select a date.'); return; }
+
+    try {
+      await addDoc(collection(db, 'reservations'), {
+        userId: currentUser.uid,
+        userName: `${userData.firstName} ${userData.lastName}`,
+        userEmail: userData.email,
+        date, time, guests, type, notes,
+        status: 'pending',
+        createdAt: serverTimestamp()
+      });
+      alert('Reservation confirmed! We look forward to welcoming you.');
+      loadReservations(currentUser.uid);
+      showTab('reservations');
+    } catch(e) { alert('Could not save reservation. Please try again.'); }
+  }
+
+  window.saveProfile = async function() {
+    if (!currentUser) return;
+    try {
+      await updateDoc(doc(db, 'users', currentUser.uid), {
+        firstName: document.getElementById('profileFirst').value,
+        lastName: document.getElementById('profileLast').value,
+        phone: document.getElementById('profilePhone').value,
+        preference: document.getElementById('profilePref').value,
+      });
+      const msg = document.getElementById('profileMsg');
+      msg.textContent = '✓ Profile updated successfully.';
+      msg.style.display = 'block';
+      setTimeout(() => { msg.style.display = 'none'; }, 3000);
+    } catch(e) { alert('Could not save. Try again.'); }
+  }
+
+  window.handleLogout = async function() {
+    await signOut(auth);
+    window.location.href = 'login.html';
+  }
+
+  window.showTab = function(tab) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById(`tab-${tab}`).classList.add('active');
+    const tabs = ['overview','reservations','orders','loyalty','menu','profile'];
+    const idx = tabs.indexOf(tab);
+    document.querySelectorAll('.tab')[idx]?.classList.add('active');
+    document.querySelectorAll('.nav-item')[idx]?.classList.add('active');
+  }
+</script>
+</body>
+</html>

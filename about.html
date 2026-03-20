@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — Kassy Foods</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --cream:#F5EFE6; --cream-dark:#EDE3D4; --brown:#6B4226; --brown-light:#9C6B4A; --terracotta:#C1714F; --terracotta-light:#D4937A; --dark:#2A1810; --text:#3D2314; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Jost',sans-serif; background:var(--cream); color:var(--text); }
+    nav { position:fixed; top:0; width:100%; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:1.4rem 4rem; background:rgba(245,239,230,0.92); backdrop-filter:blur(12px); border-bottom:1px solid rgba(107,66,38,0.1); }
+    .nav-logo { font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:600; color:var(--brown); text-decoration:none; }
+    .nav-logo span { color:var(--terracotta); font-style:italic; }
+    .nav-links { display:flex; gap:2.5rem; list-style:none; }
+    .nav-links a { font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text); text-decoration:none; transition:color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--terracotta); }
+    .nav-cta { background:var(--brown) !important; color:var(--cream) !important; padding:0.6rem 1.5rem; border-radius:2px; }
+
+    .page-hero { padding:8rem 4rem 5rem; background:var(--dark); text-align:center; position:relative; overflow:hidden; }
+    .page-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 60%, rgba(193,113,79,0.12) 0%, transparent 70%); }
+    .page-eyebrow { font-size:0.75rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--terracotta-light); margin-bottom:1rem; position:relative; }
+    .page-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2.5rem,5vw,4rem); font-weight:300; color:var(--cream); position:relative; }
+    .page-title em { font-style:italic; color:var(--terracotta-light); }
+    .page-sub { color:rgba(245,239,230,0.5); max-width:500px; margin:1rem auto 0; line-height:1.7; position:relative; }
+
+    .story { padding:6rem 4rem; display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+    .story-text h2 { font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; color:var(--dark); margin-bottom:1.5rem; }
+    .story-text h2 em { font-style:italic; color:var(--terracotta); }
+    .story-text p { font-size:0.95rem; line-height:1.9; color:var(--brown-light); margin-bottom:1.2rem; }
+    .story-visual { background:linear-gradient(135deg, var(--brown-light), var(--terracotta), var(--brown)); border-radius:4px; height:400px; display:flex; align-items:center; justify-content:center; }
+    .story-visual-text { font-family:'Cormorant Garamond',serif; font-size:4rem; color:rgba(245,239,230,0.2); font-style:italic; }
+
+    .values { background:var(--dark); padding:5rem 4rem; }
+    .values-header { text-align:center; margin-bottom:4rem; }
+    .values-eyebrow { font-size:0.75rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--terracotta-light); margin-bottom:1rem; }
+    .values-title { font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; color:var(--cream); }
+    .values-title em { font-style:italic; color:var(--terracotta-light); }
+    .values-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; }
+    .value-card { padding:2rem; border:1px solid rgba(245,239,230,0.08); border-radius:4px; }
+    .value-icon { font-size:2rem; margin-bottom:1rem; }
+    .value-name { font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--cream); margin-bottom:0.5rem; }
+    .value-desc { font-size:0.85rem; color:rgba(245,239,230,0.5); line-height:1.7; }
+
+    .team { padding:6rem 4rem; }
+    .team-header { text-align:center; margin-bottom:4rem; }
+    .team-eyebrow { font-size:0.75rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--terracotta); margin-bottom:1rem; }
+    .team-title { font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; color:var(--dark); }
+    .team-title em { font-style:italic; color:var(--terracotta); }
+    .team-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; }
+    .team-card { text-align:center; }
+    .team-avatar { width:100px; height:100px; border-radius:50%; margin:0 auto 1rem; display:flex; align-items:center; justify-content:center; font-size:2.5rem; }
+    .team-name { font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:var(--dark); }
+    .team-role { font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--terracotta); margin-top:0.3rem; }
+    .team-bio { font-size:0.83rem; color:var(--brown-light); margin-top:0.8rem; line-height:1.7; }
+
+    .cta-band { background:var(--brown); padding:5rem 4rem; display:grid; grid-template-columns:1fr auto; align-items:center; gap:3rem; }
+    .cta-band h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,3vw,3rem); font-weight:300; color:var(--cream); line-height:1.3; }
+    .cta-band h2 em { font-style:italic; color:var(--terracotta-light); }
+    .btn-light { background:var(--cream); color:var(--brown); padding:1rem 2.5rem; border:none; cursor:pointer; font-family:'Jost',sans-serif; font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase; text-decoration:none; display:inline-block; white-space:nowrap; transition:background 0.3s; }
+    .btn-light:hover { background:var(--terracotta-light); color:var(--cream); }
+
+    footer { background:var(--dark); padding:3rem 4rem; display:grid; grid-template-columns:1fr 1fr 1fr; gap:2rem; }
+    .footer-brand .logo { font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--cream); margin-bottom:0.8rem; display:block; }
+    .footer-brand .logo span { color:var(--terracotta-light); font-style:italic; }
+    .footer-brand p { font-size:0.82rem; color:rgba(245,239,230,0.4); }
+    .footer-col h4 { font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--terracotta-light); margin-bottom:1rem; }
+    .footer-col a { display:block; font-size:0.85rem; color:rgba(245,239,230,0.55); text-decoration:none; margin-bottom:0.5rem; }
+    .footer-bottom { background:var(--dark); padding:1.2rem 4rem; border-top:1px solid rgba(245,239,230,0.07); text-align:center; font-size:0.78rem; color:rgba(245,239,230,0.25); }
+
+    @media(max-width:900px) {
+      nav { padding:1rem 2rem; }
+      .nav-links { display:none; }
+      .page-hero, .story, .values, .team, .cta-band, footer { padding-left:2rem; padding-right:2rem; }
+      .story { grid-template-columns:1fr; gap:2rem; }
+      .values-grid, .team-grid { grid-template-columns:1fr; }
+      .cta-band { grid-template-columns:1fr; }
+      footer { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">Kassy <span>Foods</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="reservations.html">Reserve</a></li>
+      <li><a href="login.html" class="nav-cta">Sign In</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-eyebrow">Our Story</div>
+    <h1 class="page-title">More Than a <em>Meal</em></h1>
+    <p class="page-sub">Kassy Foods was born from a love of exceptional food, warm hospitality, and the belief that every dining experience should be memorable.</p>
+  </div>
+
+  <section class="story">
+    <div class="story-text">
+      <h2>Born in <em>Lagos</em>, Built for the World</h2>
+      <p>Kassy Foods began as a vision — to bring world-class fine dining to Lagos with a distinctly African soul. We believe that Nigerian ingredients, when treated with the same reverence as the finest European produce, can create extraordinary culinary experiences.</p>
+      <p>Our chefs draw inspiration from the bold flavours of West Africa and the refined techniques of classical French and modern European cuisine — resulting in dishes that are both familiar and surprising.</p>
+      <p>Every detail at Kassy Foods — from the curated wine list to the hand-selected tableware — reflects our commitment to excellence. We don't just serve food. We create memories.</p>
+    </div>
+    <div class="story-visual">
+      <div class="story-visual-text">Since<br>2024</div>
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="values-header">
+      <div class="values-eyebrow">What We Stand For</div>
+      <h2 class="values-title">Our <em>Values</em></h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">✨</div>
+        <div class="value-name">Excellence</div>
+        <div class="value-desc">Every dish, every service interaction, every detail is held to the highest standard. We don't settle for good when extraordinary is possible.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🌍</div>
+        <div class="value-name">African Pride</div>
+        <div class="value-desc">We celebrate Nigerian and African ingredients, culture, and heritage — weaving them into every element of the Kassy Foods experience.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <div class="value-name">Warm Hospitality</div>
+        <div class="value-desc">From the moment you walk in, you are family. Our team is trained to anticipate your needs before you even know you have them.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="team">
+    <div class="team-header">
+      <div class="team-eyebrow">The People Behind the Plates</div>
+      <h2 class="team-title">Meet the <em>Team</em></h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg,var(--brown),var(--terracotta))">👨‍🍳</div>
+        <div class="team-name">Chef Emmanuel Okafor</div>
+        <div class="team-role">Executive Chef</div>
+        <p class="team-bio">Trained at Le Cordon Bleu Paris, Chef Emmanuel brings 15 years of fine dining mastery and a deep love for West African flavour to every plate.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg,var(--terracotta),var(--brown-light))">👩‍🍳</div>
+        <div class="team-name">Chef Adaeze Nwosu</div>
+        <div class="team-role">Pastry Chef</div>
+        <p class="team-bio">Adaeze's desserts are the stuff of legend — classical French techniques reimagined with Nigerian tropical fruits and flavours.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg,var(--brown-light),var(--dark))">🍷</div>
+        <div class="team-name">Chisom Eze</div>
+        <div class="team-role">Head Sommelier</div>
+        <p class="team-bio">With certifications from the Court of Master Sommeliers, Chisom curates wine pairings that elevate every dish on the menu.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <h2>Experience <em>Kassy Foods</em><br>for yourself.</h2>
+    <a href="reservations.html" class="btn-light">Reserve a Table</a>
+  </div>
+
+  <footer>
+    <div class="footer-brand"><span class="logo">Kassy <span>Foods</span></span><p>Fine dining elevated.</p></div>
+    <div class="footer-col"><h4>Explore</h4><a href="menu.html">Our Menu</a><a href="about.html">About Us</a><a href="reservations.html">Reservations</a></div>
+    <div class="footer-col"><h4>Account</h4><a href="login.html">Sign In</a><a href="signup.html">Create Account</a></div>
+  </footer>
+  <div class="footer-bottom">© 2024 Kassy Foods. All rights reserved.</div>
+</body>
+</html>
