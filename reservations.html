@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -17,63 +18,68 @@
     .nav-links a:hover, .nav-links a.active { color:var(--terracotta); }
     .nav-cta { background:var(--brown) !important; color:var(--cream) !important; padding:0.6rem 1.5rem; border-radius:2px; }
 
-    .res-wrap { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; }
-    .res-left { background:var(--dark); padding:8rem 4rem 4rem; display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden; }
-    .res-left::before { content:''; position:absolute; top:-30%; right:-30%; width:80%; height:80%; border-radius:50%; background:rgba(193,113,79,0.1); }
-    .res-left-eyebrow { font-size:0.75rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--terracotta-light); margin-bottom:1.5rem; position:relative; }
-    .res-left h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(2.5rem,4vw,3.5rem); font-weight:300; color:var(--cream); line-height:1.2; position:relative; margin-bottom:1.5rem; }
-    .res-left h1 em { font-style:italic; color:var(--terracotta-light); }
-    .res-left p { font-size:0.9rem; color:rgba(245,239,230,0.5); line-height:1.8; position:relative; max-width:380px; margin-bottom:3rem; }
-    .info-items { position:relative; }
-    .info-item { display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.5rem; }
-    .info-icon { font-size:1.2rem; margin-top:0.1rem; }
-    .info-label { font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--terracotta-light); margin-bottom:0.2rem; }
-    .info-value { font-size:0.9rem; color:rgba(245,239,230,0.7); }
+```
+.res-wrap { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; }
+.res-left { background:var(--dark); padding:8rem 4rem 4rem; display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden; }
+.res-left-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.25; z-index:0; }
+.res-left > *:not(.res-left-bg) { position:relative; z-index:1; }
+.res-left::before { content:''; position:absolute; top:-30%; right:-30%; width:80%; height:80%; border-radius:50%; background:rgba(193,113,79,0.1); }
+.res-left-eyebrow { font-size:0.75rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--terracotta-light); margin-bottom:1.5rem; position:relative; }
+.res-left h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(2.5rem,4vw,3.5rem); font-weight:300; color:var(--cream); line-height:1.2; position:relative; margin-bottom:1.5rem; }
+.res-left h1 em { font-style:italic; color:var(--terracotta-light); }
+.res-left p { font-size:0.9rem; color:rgba(245,239,230,0.5); line-height:1.8; position:relative; max-width:380px; margin-bottom:3rem; }
+.info-items { position:relative; }
+.info-item { display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.5rem; }
+.info-icon { font-size:1.2rem; margin-top:0.1rem; }
+.info-label { font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--terracotta-light); margin-bottom:0.2rem; }
+.info-value { font-size:0.9rem; color:rgba(245,239,230,0.7); }
 
-    .res-right { padding:8rem 4rem 4rem; display:flex; flex-direction:column; justify-content:center; }
-    .res-right h2 { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; color:var(--dark); margin-bottom:2rem; }
-    .res-right h2 em { font-style:italic; color:var(--terracotta); }
+.res-right { padding:8rem 4rem 4rem; display:flex; flex-direction:column; justify-content:center; }
+.res-right h2 { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; color:var(--dark); margin-bottom:2rem; }
+.res-right h2 em { font-style:italic; color:var(--terracotta); }
 
-    .form-group { margin-bottom:1.2rem; }
-    .form-group label { display:block; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--brown); margin-bottom:0.45rem; }
-    .form-group input, .form-group select, .form-group textarea {
-      width:100%; padding:0.85rem 1rem;
-      background:white; border:1px solid var(--cream-dark);
-      font-family:'Jost',sans-serif; font-size:0.92rem;
-      color:var(--text); outline:none; transition:border-color 0.3s; border-radius:2px;
-    }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--terracotta); }
-    .form-group input::placeholder, .form-group textarea::placeholder { color:#C5B8A8; }
-    .form-group textarea { resize:vertical; min-height:90px; }
-    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.form-group { margin-bottom:1.2rem; }
+.form-group label { display:block; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--brown); margin-bottom:0.45rem; }
+.form-group input, .form-group select, .form-group textarea {
+  width:100%; padding:0.85rem 1rem;
+  background:white; border:1px solid var(--cream-dark);
+  font-family:'Jost',sans-serif; font-size:0.92rem;
+  color:var(--text); outline:none; transition:border-color 0.3s; border-radius:2px;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--terracotta); }
+.form-group input::placeholder, .form-group textarea::placeholder { color:#C5B8A8; }
+.form-group textarea { resize:vertical; min-height:90px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
 
-    .btn-submit { width:100%; background:var(--brown); color:var(--cream); padding:1rem; border:none; cursor:pointer; font-family:'Jost',sans-serif; font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; margin-top:0.5rem; transition:background 0.3s; border-radius:2px; }
-    .btn-submit:hover { background:var(--terracotta); }
-    .btn-submit:disabled { opacity:0.6; cursor:not-allowed; }
+.btn-submit { width:100%; background:var(--brown); color:var(--cream); padding:1rem; border:none; cursor:pointer; font-family:'Jost',sans-serif; font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; margin-top:0.5rem; transition:background 0.3s; border-radius:2px; }
+.btn-submit:hover { background:var(--terracotta); }
+.btn-submit:disabled { opacity:0.6; cursor:not-allowed; }
 
-    .success-msg { background:rgba(76,175,80,0.08); border:1px solid #A5D6A7; color:#2E7D32; padding:1rem; font-size:0.88rem; margin-bottom:1.2rem; border-radius:2px; display:none; }
-    .error-msg { background:rgba(193,113,79,0.1); border:1px solid var(--terracotta); color:var(--terracotta); padding:0.8rem 1rem; font-size:0.85rem; margin-bottom:1rem; border-radius:2px; display:none; }
+.success-msg { background:rgba(76,175,80,0.08); border:1px solid #A5D6A7; color:#2E7D32; padding:1rem; font-size:0.88rem; margin-bottom:1.2rem; border-radius:2px; display:none; }
+.error-msg { background:rgba(193,113,79,0.1); border:1px solid var(--terracotta); color:var(--terracotta); padding:0.8rem 1rem; font-size:0.85rem; margin-bottom:1rem; border-radius:2px; display:none; }
 
-    .login-note { margin-top:1.2rem; text-align:center; font-size:0.82rem; color:var(--brown-light); }
-    .login-note a { color:var(--terracotta); text-decoration:none; }
+.login-note { margin-top:1.2rem; text-align:center; font-size:0.82rem; color:var(--brown-light); }
+.login-note a { color:var(--terracotta); text-decoration:none; }
 
-    footer { background:var(--dark); padding:3rem 4rem; display:grid; grid-template-columns:1fr 1fr 1fr; gap:2rem; }
-    .footer-col h4 { font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--terracotta-light); margin-bottom:1rem; }
-    .footer-col a { display:block; font-size:0.85rem; color:rgba(245,239,230,0.55); text-decoration:none; margin-bottom:0.5rem; }
-    .footer-brand .logo { font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--cream); margin-bottom:0.8rem; display:block; }
-    .footer-brand .logo span { color:var(--terracotta-light); font-style:italic; }
-    .footer-brand p { font-size:0.82rem; color:rgba(245,239,230,0.4); }
-    .footer-bottom { background:var(--dark); padding:1.2rem 4rem; border-top:1px solid rgba(245,239,230,0.07); text-align:center; font-size:0.78rem; color:rgba(245,239,230,0.25); }
+footer { background:var(--dark); padding:3rem 4rem; display:grid; grid-template-columns:1fr 1fr 1fr; gap:2rem; }
+.footer-col h4 { font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--terracotta-light); margin-bottom:1rem; }
+.footer-col a { display:block; font-size:0.85rem; color:rgba(245,239,230,0.55); text-decoration:none; margin-bottom:0.5rem; }
+.footer-brand .logo { font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--cream); margin-bottom:0.8rem; display:block; }
+.footer-brand .logo span { color:var(--terracotta-light); font-style:italic; }
+.footer-brand p { font-size:0.82rem; color:rgba(245,239,230,0.4); }
+.footer-bottom { background:var(--dark); padding:1.2rem 4rem; border-top:1px solid rgba(245,239,230,0.07); text-align:center; font-size:0.78rem; color:rgba(245,239,230,0.25); }
 
-    @media(max-width:900px) {
-      nav { padding:1rem 2rem; }
-      .nav-links { display:none; }
-      .res-wrap { grid-template-columns:1fr; }
-      .res-left { padding:7rem 2rem 3rem; }
-      .res-right { padding:3rem 2rem; }
-      .form-row { grid-template-columns:1fr; }
-      footer { grid-template-columns:1fr; padding:2rem; }
-    }
+@media(max-width:900px) {
+  nav { padding:1rem 2rem; }
+  .nav-links { display:none; }
+  .res-wrap { grid-template-columns:1fr; }
+  .res-left { padding:7rem 2rem 3rem; }
+  .res-right { padding:3rem 2rem; }
+  .form-row { grid-template-columns:1fr; }
+  footer { grid-template-columns:1fr; padding:2rem; }
+}
+```
+
   </style>
 </head>
 <body>
@@ -90,6 +96,7 @@
 
   <div class="res-wrap">
     <div class="res-left">
+      <img class="res-left-bg" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80" alt="Fine dining atmosphere" />
       <div class="res-left-eyebrow">Book Your Experience</div>
       <h1>Reserve<br>Your <em>Table</em></h1>
       <p>Whether it's a romantic dinner, a family celebration, or a business lunch — we'll make it unforgettable.</p>
@@ -109,73 +116,76 @@
       </div>
     </div>
 
-    <div class="res-right">
-      <h2>Make a <em>Reservation</em></h2>
+```
+<div class="res-right">
+  <h2>Make a <em>Reservation</em></h2>
 
-      <div class="success-msg" id="successMsg">✓ Your reservation has been submitted! We'll confirm via email shortly.</div>
-      <div class="error-msg" id="errorMsg"></div>
+  <div class="success-msg" id="successMsg">✓ Your reservation has been submitted! We'll confirm via email shortly.</div>
+  <div class="error-msg" id="errorMsg"></div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label>First Name *</label>
-          <input type="text" id="firstName" placeholder="Amara" />
-        </div>
-        <div class="form-group">
-          <label>Last Name *</label>
-          <input type="text" id="lastName" placeholder="Okafor" />
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Email *</label>
-          <input type="email" id="email" placeholder="you@example.com" />
-        </div>
-        <div class="form-group">
-          <label>Phone</label>
-          <input type="tel" id="phone" placeholder="+234 800 000 0000" />
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Date *</label>
-          <input type="date" id="date" />
-        </div>
-        <div class="form-group">
-          <label>Time *</label>
-          <select id="time">
-            <option value="">Select time</option>
-            <option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option>
-            <option>6:00 PM</option><option>7:00 PM</option><option>8:00 PM</option><option>9:00 PM</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Number of Guests *</label>
-          <select id="guests">
-            <option value="">Select</option>
-            <option>1</option><option>2</option><option>3</option>
-            <option>4</option><option>5</option><option>6+</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Dining Type</label>
-          <select id="type">
-            <option>Fine Dining</option><option>Private Room</option><option>Bar Seating</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Special Requests</label>
-        <textarea id="notes" placeholder="Dietary requirements, occasion, seating preferences, allergies..."></textarea>
-      </div>
-
-      <button class="btn-submit" id="resBtn" onclick="submitReservation()">Confirm Reservation</button>
-
-      <p class="login-note">
-        Have an account? <a href="login.html">Sign in</a> to manage reservations from your dashboard.
-      </p>
+  <div class="form-row">
+    <div class="form-group">
+      <label>First Name *</label>
+      <input type="text" id="firstName" placeholder="Amara" />
     </div>
+    <div class="form-group">
+      <label>Last Name *</label>
+      <input type="text" id="lastName" placeholder="Okafor" />
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Email *</label>
+      <input type="email" id="email" placeholder="you@example.com" />
+    </div>
+    <div class="form-group">
+      <label>Phone</label>
+      <input type="tel" id="phone" placeholder="+234 800 000 0000" />
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Date *</label>
+      <input type="date" id="date" />
+    </div>
+    <div class="form-group">
+      <label>Time *</label>
+      <select id="time">
+        <option value="">Select time</option>
+        <option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option>
+        <option>6:00 PM</option><option>7:00 PM</option><option>8:00 PM</option><option>9:00 PM</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Number of Guests *</label>
+      <select id="guests">
+        <option value="">Select</option>
+        <option>1</option><option>2</option><option>3</option>
+        <option>4</option><option>5</option><option>6+</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Dining Type</label>
+      <select id="type">
+        <option>Fine Dining</option><option>Private Room</option><option>Bar Seating</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Special Requests</label>
+    <textarea id="notes" placeholder="Dietary requirements, occasion, seating preferences, allergies..."></textarea>
+  </div>
+
+  <button class="btn-submit" id="resBtn" onclick="submitReservation()">Confirm Reservation</button>
+
+  <p class="login-note">
+    Have an account? <a href="login.html">Sign in</a> to manage reservations from your dashboard.
+  </p>
+</div>
+```
+
   </div>
 
   <footer>
@@ -232,5 +242,6 @@
       }
     }
   </script>
+
 </body>
 </html>
