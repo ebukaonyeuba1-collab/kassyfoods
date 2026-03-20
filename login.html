@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -15,97 +16,100 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; display: flex; }
 
-    .auth-left {
-      width: 45%; background: var(--brown);
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 4rem; position: relative; overflow: hidden;
-    }
-    .auth-left::before {
-      content: ''; position: absolute; bottom: -20%; right: -20%;
-      width: 60%; height: 60%; border-radius: 50%;
-      background: rgba(193,113,79,0.2);
-    }
-    .auth-left-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem; color: var(--cream); margin-bottom: 3rem;
-      text-decoration: none; display: block; position: relative; z-index: 1;
-    }
-    .auth-left-logo span { color: var(--terracotta-light); font-style: italic; }
-    .auth-left-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem; font-weight: 300; font-style: italic;
-      color: var(--cream); line-height: 1.3; position: relative; z-index: 1;
-      margin-bottom: 2rem;
-    }
-    .auth-left-quote em { color: var(--terracotta-light); font-style: normal; }
-    .auth-left-sub { font-size: 0.85rem; color: rgba(245,239,230,0.6); position: relative; z-index: 1; }
-    .perks { margin-top: 2rem; position: relative; z-index: 1; }
-    .perk { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; }
-    .perk-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--terracotta-light); flex-shrink: 0; }
-    .perk span { font-size: 0.85rem; color: rgba(245,239,230,0.7); }
+```
+.auth-left {
+  width: 45%; background: var(--brown);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 4rem; position: relative; overflow: hidden;
+}
+.auth-left::before {
+  content: ''; position: absolute; bottom: -20%; right: -20%;
+  width: 60%; height: 60%; border-radius: 50%;
+  background: rgba(193,113,79,0.2);
+}
+.auth-left-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem; color: var(--cream); margin-bottom: 3rem;
+  text-decoration: none; display: block; position: relative; z-index: 1;
+}
+.auth-left-logo span { color: var(--terracotta-light); font-style: italic; }
+.auth-left-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem; font-weight: 300; font-style: italic;
+  color: var(--cream); line-height: 1.3; position: relative; z-index: 1;
+  margin-bottom: 2rem;
+}
+.auth-left-quote em { color: var(--terracotta-light); font-style: normal; }
+.auth-left-sub { font-size: 0.85rem; color: rgba(245,239,230,0.6); position: relative; z-index: 1; }
+.perks { margin-top: 2rem; position: relative; z-index: 1; }
+.perk { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; }
+.perk-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--terracotta-light); flex-shrink: 0; }
+.perk span { font-size: 0.85rem; color: rgba(245,239,230,0.7); }
 
-    .auth-right {
-      flex: 1; display: flex; flex-direction: column;
-      justify-content: center; padding: 4rem;
-      max-width: 480px; margin: 0 auto; width: 100%;
-    }
-    .auth-right h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.8rem; font-weight: 300; color: var(--dark); margin-bottom: 0.5rem;
-    }
-    .auth-right h1 em { font-style: italic; color: var(--terracotta); }
-    .auth-subtitle { font-size: 0.9rem; color: var(--brown-light); margin-bottom: 2.5rem; }
-    .auth-subtitle a { color: var(--terracotta); text-decoration: none; }
+.auth-right {
+  flex: 1; display: flex; flex-direction: column;
+  justify-content: center; padding: 4rem;
+  max-width: 480px; margin: 0 auto; width: 100%;
+}
+.auth-right h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem; font-weight: 300; color: var(--dark); margin-bottom: 0.5rem;
+}
+.auth-right h1 em { font-style: italic; color: var(--terracotta); }
+.auth-subtitle { font-size: 0.9rem; color: var(--brown-light); margin-bottom: 2.5rem; }
+.auth-subtitle a { color: var(--terracotta); text-decoration: none; }
 
-    .form-group { margin-bottom: 1.2rem; }
-    .form-group label {
-      display: block; font-size: 0.75rem; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--brown); margin-bottom: 0.5rem;
-    }
-    .form-group input {
-      width: 100%; padding: 0.9rem 1rem;
-      background: white; border: 1px solid var(--cream-dark);
-      font-family: 'Jost', sans-serif; font-size: 0.95rem;
-      color: var(--text); outline: none; transition: border-color 0.3s;
-      border-radius: 2px;
-    }
-    .form-group input:focus { border-color: var(--terracotta); }
-    .form-group input::placeholder { color: #C5B8A8; }
+.form-group { margin-bottom: 1.2rem; }
+.form-group label {
+  display: block; font-size: 0.75rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--brown); margin-bottom: 0.5rem;
+}
+.form-group input {
+  width: 100%; padding: 0.9rem 1rem;
+  background: white; border: 1px solid var(--cream-dark);
+  font-family: 'Jost', sans-serif; font-size: 0.95rem;
+  color: var(--text); outline: none; transition: border-color 0.3s;
+  border-radius: 2px;
+}
+.form-group input:focus { border-color: var(--terracotta); }
+.form-group input::placeholder { color: #C5B8A8; }
 
-    .forgot { text-align: right; margin-bottom: 1.5rem; }
-    .forgot a { font-size: 0.8rem; color: var(--brown-light); text-decoration: none; }
-    .forgot a:hover { color: var(--terracotta); }
+.forgot { text-align: right; margin-bottom: 1.5rem; }
+.forgot a { font-size: 0.8rem; color: var(--brown-light); text-decoration: none; }
+.forgot a:hover { color: var(--terracotta); }
 
-    .btn-submit {
-      width: 100%; background: var(--brown); color: var(--cream);
-      padding: 1rem; border: none; cursor: pointer;
-      font-family: 'Jost', sans-serif; font-size: 0.85rem;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      transition: background 0.3s; border-radius: 2px;
-    }
-    .btn-submit:hover { background: var(--terracotta); }
-    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-submit {
+  width: 100%; background: var(--brown); color: var(--cream);
+  padding: 1rem; border: none; cursor: pointer;
+  font-family: 'Jost', sans-serif; font-size: 0.85rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  transition: background 0.3s; border-radius: 2px;
+}
+.btn-submit:hover { background: var(--terracotta); }
+.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
-    .error-msg {
-      background: rgba(193,113,79,0.1); border: 1px solid var(--terracotta);
-      color: var(--terracotta); padding: 0.8rem 1rem;
-      font-size: 0.85rem; margin-bottom: 1rem; border-radius: 2px;
-      display: none;
-    }
-    .divider {
-      text-align: center; font-size: 0.8rem; color: var(--brown-light);
-      margin: 1.5rem 0; position: relative;
-    }
-    .divider::before, .divider::after {
-      content: ''; position: absolute; top: 50%; width: 40%;
-      height: 1px; background: var(--cream-dark);
-    }
-    .divider::before { left: 0; } .divider::after { right: 0; }
+.error-msg {
+  background: rgba(193,113,79,0.1); border: 1px solid var(--terracotta);
+  color: var(--terracotta); padding: 0.8rem 1rem;
+  font-size: 0.85rem; margin-bottom: 1rem; border-radius: 2px;
+  display: none;
+}
+.divider {
+  text-align: center; font-size: 0.8rem; color: var(--brown-light);
+  margin: 1.5rem 0; position: relative;
+}
+.divider::before, .divider::after {
+  content: ''; position: absolute; top: 50%; width: 40%;
+  height: 1px; background: var(--cream-dark);
+}
+.divider::before { left: 0; } .divider::after { right: 0; }
 
-    @media (max-width: 900px) {
-      .auth-left { display: none; }
-      .auth-right { padding: 2rem; }
-    }
+@media (max-width: 900px) {
+  .auth-left { display: none; }
+  .auth-right { padding: 2rem; }
+}
+```
+
   </style>
 </head>
 <body>
@@ -128,36 +132,41 @@
     <h1>Sign <em>In</em></h1>
     <p class="auth-subtitle">New to Kassy Foods? <a href="signup.html">Create an account</a></p>
 
-    <div class="error-msg" id="errorMsg"></div>
+```
+<div class="error-msg" id="errorMsg"></div>
 
-    <div class="form-group">
-      <label>Email Address</label>
-      <input type="email" id="email" placeholder="you@example.com" />
-    </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" id="password" placeholder="Your password" />
-    </div>
+<div class="form-group">
+  <label>Email Address</label>
+  <input type="email" id="email" placeholder="you@example.com" />
+</div>
+<div class="form-group">
+  <label>Password</label>
+  <input type="password" id="password" placeholder="Your password" />
+</div>
 
-    <div class="forgot"><a href="#">Forgot password?</a></div>
+<div class="forgot"><a href="#">Forgot password?</a></div>
 
-    <button class="btn-submit" id="loginBtn" onclick="handleLogin()">Sign In</button>
+<button class="btn-submit" id="loginBtn" onclick="handleLogin()">Sign In</button>
 
-    <div class="divider">or</div>
-    <p style="text-align:center; font-size:0.85rem; color: var(--brown-light);">
-      <a href="index.html" style="color: var(--brown-light);">← Back to Home</a>
-    </p>
+<div class="divider">or</div>
+<p style="text-align:center; font-size:0.85rem; color: var(--brown-light);">
+  <a href="index.html" style="color: var(--brown-light);">← Back to Home</a>
+</p>
+```
+
   </div>
 
   <script type="module">
     import { auth, ADMIN_EMAIL } from './firebase-config.js';
     import { signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
-    // Redirect if already logged in
+    // Only redirect if already logged in (skip if redirected here intentionally)
+    let redirected = false;
     onAuthStateChanged(auth, (user) => {
-      if (user) {
-        if (user.email === ADMIN_EMAIL) window.location.href = 'admin.html';
-        else window.location.href = 'dashboard.html';
+      if (user && !redirected) {
+        redirected = true;
+        if (user.email === ADMIN_EMAIL) window.location.replace('admin.html');
+        else window.location.replace('dashboard.html');
       }
     });
 
@@ -176,10 +185,12 @@
       btn.disabled = true; btn.textContent = 'Signing In...';
 
       try {
+        redirected = true;
         const userCred = await signInWithEmailAndPassword(auth, email, password);
-        if (userCred.user.email === ADMIN_EMAIL) window.location.href = 'admin.html';
-        else window.location.href = 'dashboard.html';
+        if (userCred.user.email === ADMIN_EMAIL) window.location.replace('admin.html');
+        else window.location.replace('dashboard.html');
       } catch (err) {
+        redirected = false;
         let msg = 'Sign in failed. Please try again.';
         if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') msg = 'Invalid email or password.';
         if (err.code === 'auth/too-many-requests') msg = 'Too many attempts. Please try again later.';
@@ -194,5 +205,6 @@
       if (e.key === 'Enter') handleLogin();
     });
   </script>
+
 </body>
 </html>
