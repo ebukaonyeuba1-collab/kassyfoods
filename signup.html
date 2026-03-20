@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -15,103 +16,106 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; display: flex; }
 
-    .auth-left {
-      width: 45%; background: var(--dark);
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 4rem; position: relative; overflow: hidden;
-    }
-    .auth-left::before {
-      content: ''; position: absolute; top: -50%; left: -50%;
-      width: 200%; height: 200%;
-      background: radial-gradient(ellipse at 60% 40%, rgba(193,113,79,0.15) 0%, transparent 60%);
-    }
-    .auth-left-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem; color: var(--cream); margin-bottom: 3rem;
-      text-decoration: none; display: block; position: relative; z-index: 1;
-    }
-    .auth-left-logo span { color: var(--terracotta-light); font-style: italic; }
-    .auth-left-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem; font-weight: 300; font-style: italic;
-      color: var(--cream); line-height: 1.4; position: relative; z-index: 1;
-      margin-bottom: 2rem;
-    }
-    .auth-left-quote em { color: var(--terracotta-light); }
-    .auth-left-sub { font-size: 0.85rem; color: rgba(245,239,230,0.5); position: relative; z-index: 1; line-height: 1.7; }
+```
+.auth-left {
+  width: 45%; background: var(--dark);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 4rem; position: relative; overflow: hidden;
+}
+.auth-left::before {
+  content: ''; position: absolute; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(ellipse at 60% 40%, rgba(193,113,79,0.15) 0%, transparent 60%);
+}
+.auth-left-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem; color: var(--cream); margin-bottom: 3rem;
+  text-decoration: none; display: block; position: relative; z-index: 1;
+}
+.auth-left-logo span { color: var(--terracotta-light); font-style: italic; }
+.auth-left-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem; font-weight: 300; font-style: italic;
+  color: var(--cream); line-height: 1.4; position: relative; z-index: 1;
+  margin-bottom: 2rem;
+}
+.auth-left-quote em { color: var(--terracotta-light); }
+.auth-left-sub { font-size: 0.85rem; color: rgba(245,239,230,0.5); position: relative; z-index: 1; line-height: 1.7; }
 
-    .auth-right {
-      flex: 1; display: flex; flex-direction: column;
-      justify-content: center; padding: 4rem;
-      max-width: 500px; margin: 0 auto;
-    }
-    .auth-right h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem; font-weight: 300; color: var(--dark);
-      margin-bottom: 0.5rem;
-    }
-    .auth-right h1 em { font-style: italic; color: var(--terracotta); }
-    .auth-subtitle { font-size: 0.9rem; color: var(--brown-light); margin-bottom: 2.5rem; }
-    .auth-subtitle a { color: var(--terracotta); text-decoration: none; }
+.auth-right {
+  flex: 1; display: flex; flex-direction: column;
+  justify-content: center; padding: 4rem;
+  max-width: 500px; margin: 0 auto;
+}
+.auth-right h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem; font-weight: 300; color: var(--dark);
+  margin-bottom: 0.5rem;
+}
+.auth-right h1 em { font-style: italic; color: var(--terracotta); }
+.auth-subtitle { font-size: 0.9rem; color: var(--brown-light); margin-bottom: 2.5rem; }
+.auth-subtitle a { color: var(--terracotta); text-decoration: none; }
 
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .form-group { margin-bottom: 1.2rem; }
-    .form-group label {
-      display: block; font-size: 0.75rem; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--brown); margin-bottom: 0.5rem;
-    }
-    .form-group input {
-      width: 100%; padding: 0.85rem 1rem;
-      background: white; border: 1px solid var(--cream-dark);
-      font-family: 'Jost', sans-serif; font-size: 0.95rem;
-      color: var(--text); outline: none; transition: border-color 0.3s;
-      border-radius: 2px;
-    }
-    .form-group input:focus { border-color: var(--terracotta); }
-    .form-group input::placeholder { color: #C5B8A8; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { margin-bottom: 1.2rem; }
+.form-group label {
+  display: block; font-size: 0.75rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--brown); margin-bottom: 0.5rem;
+}
+.form-group input {
+  width: 100%; padding: 0.85rem 1rem;
+  background: white; border: 1px solid var(--cream-dark);
+  font-family: 'Jost', sans-serif; font-size: 0.95rem;
+  color: var(--text); outline: none; transition: border-color 0.3s;
+  border-radius: 2px;
+}
+.form-group input:focus { border-color: var(--terracotta); }
+.form-group input::placeholder { color: #C5B8A8; }
 
-    .form-group select {
-      width: 100%; padding: 0.85rem 1rem;
-      background: white; border: 1px solid var(--cream-dark);
-      font-family: 'Jost', sans-serif; font-size: 0.95rem;
-      color: var(--text); outline: none; transition: border-color 0.3s;
-      border-radius: 2px; cursor: pointer;
-    }
-    .form-group select:focus { border-color: var(--terracotta); }
+.form-group select {
+  width: 100%; padding: 0.85rem 1rem;
+  background: white; border: 1px solid var(--cream-dark);
+  font-family: 'Jost', sans-serif; font-size: 0.95rem;
+  color: var(--text); outline: none; transition: border-color 0.3s;
+  border-radius: 2px; cursor: pointer;
+}
+.form-group select:focus { border-color: var(--terracotta); }
 
-    .btn-submit {
-      width: 100%; background: var(--brown); color: var(--cream);
-      padding: 1rem; border: none; cursor: pointer;
-      font-family: 'Jost', sans-serif; font-size: 0.85rem;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      margin-top: 0.5rem; transition: background 0.3s;
-      border-radius: 2px;
-    }
-    .btn-submit:hover { background: var(--terracotta); }
-    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-submit {
+  width: 100%; background: var(--brown); color: var(--cream);
+  padding: 1rem; border: none; cursor: pointer;
+  font-family: 'Jost', sans-serif; font-size: 0.85rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  margin-top: 0.5rem; transition: background 0.3s;
+  border-radius: 2px;
+}
+.btn-submit:hover { background: var(--terracotta); }
+.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
-    .error-msg {
-      background: rgba(193,113,79,0.1); border: 1px solid var(--terracotta);
-      color: var(--terracotta); padding: 0.8rem 1rem;
-      font-size: 0.85rem; margin-bottom: 1rem; border-radius: 2px;
-      display: none;
-    }
-    .divider {
-      text-align: center; font-size: 0.8rem; color: var(--brown-light);
-      margin: 1.5rem 0; position: relative;
-    }
-    .divider::before, .divider::after {
-      content: ''; position: absolute; top: 50%; width: 40%;
-      height: 1px; background: var(--cream-dark);
-    }
-    .divider::before { left: 0; }
-    .divider::after { right: 0; }
+.error-msg {
+  background: rgba(193,113,79,0.1); border: 1px solid var(--terracotta);
+  color: var(--terracotta); padding: 0.8rem 1rem;
+  font-size: 0.85rem; margin-bottom: 1rem; border-radius: 2px;
+  display: none;
+}
+.divider {
+  text-align: center; font-size: 0.8rem; color: var(--brown-light);
+  margin: 1.5rem 0; position: relative;
+}
+.divider::before, .divider::after {
+  content: ''; position: absolute; top: 50%; width: 40%;
+  height: 1px; background: var(--cream-dark);
+}
+.divider::before { left: 0; }
+.divider::after { right: 0; }
 
-    @media (max-width: 900px) {
-      .auth-left { display: none; }
-      .auth-right { padding: 2rem; }
-      .form-row { grid-template-columns: 1fr; }
-    }
+@media (max-width: 900px) {
+  .auth-left { display: none; }
+  .auth-right { padding: 2rem; }
+  .form-row { grid-template-columns: 1fr; }
+}
+```
+
   </style>
 </head>
 <body>
@@ -128,51 +132,54 @@
     <h1>Create <em>Account</em></h1>
     <p class="auth-subtitle">Already have an account? <a href="login.html">Sign in</a></p>
 
-    <div class="error-msg" id="errorMsg"></div>
+```
+<div class="error-msg" id="errorMsg"></div>
 
-    <div class="form-row">
-      <div class="form-group">
-        <label>First Name</label>
-        <input type="text" id="firstName" placeholder="Amara" />
-      </div>
-      <div class="form-group">
-        <label>Last Name</label>
-        <input type="text" id="lastName" placeholder="Okafor" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Email Address</label>
-      <input type="email" id="email" placeholder="you@example.com" />
-    </div>
-    <div class="form-group">
-      <label>Phone Number</label>
-      <input type="tel" id="phone" placeholder="+234 800 000 0000" />
-    </div>
-    <div class="form-group">
-      <label>Dining Preference</label>
-      <select id="preference">
-        <option value="">Select preference</option>
-        <option value="fine-dining">Fine Dining</option>
-        <option value="private">Private Dining</option>
-        <option value="casual">Casual Dining</option>
-        <option value="takeout">Takeout / Delivery</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" id="password" placeholder="Min. 8 characters" />
-    </div>
-    <div class="form-group">
-      <label>Confirm Password</label>
-      <input type="password" id="confirmPassword" placeholder="Repeat password" />
-    </div>
+<div class="form-row">
+  <div class="form-group">
+    <label>First Name</label>
+    <input type="text" id="firstName" placeholder="Amara" />
+  </div>
+  <div class="form-group">
+    <label>Last Name</label>
+    <input type="text" id="lastName" placeholder="Okafor" />
+  </div>
+</div>
+<div class="form-group">
+  <label>Email Address</label>
+  <input type="email" id="email" placeholder="you@example.com" />
+</div>
+<div class="form-group">
+  <label>Phone Number</label>
+  <input type="tel" id="phone" placeholder="+234 800 000 0000" />
+</div>
+<div class="form-group">
+  <label>Dining Preference</label>
+  <select id="preference">
+    <option value="">Select preference</option>
+    <option value="fine-dining">Fine Dining</option>
+    <option value="private">Private Dining</option>
+    <option value="casual">Casual Dining</option>
+    <option value="takeout">Takeout / Delivery</option>
+  </select>
+</div>
+<div class="form-group">
+  <label>Password</label>
+  <input type="password" id="password" placeholder="Min. 8 characters" />
+</div>
+<div class="form-group">
+  <label>Confirm Password</label>
+  <input type="password" id="confirmPassword" placeholder="Repeat password" />
+</div>
 
-    <button class="btn-submit" id="signupBtn" onclick="handleSignup()">Create Account</button>
+<button class="btn-submit" id="signupBtn" onclick="handleSignup()">Create Account</button>
 
-    <div class="divider">or</div>
-    <p style="text-align:center; font-size:0.85rem; color: var(--brown-light);">
-      <a href="index.html" style="color: var(--brown-light);">← Back to Home</a>
-    </p>
+<div class="divider">or</div>
+<p style="text-align:center; font-size:0.85rem; color: var(--brown-light);">
+  <a href="index.html" style="color: var(--brown-light);">← Back to Home</a>
+</p>
+```
+
   </div>
 
   <script type="module">
@@ -211,23 +218,26 @@
       try {
         const userCred = await createUserWithEmailAndPassword(auth, email, password);
         await updateProfile(userCred.user, { displayName: `${firstName} ${lastName}` });
-        await setDoc(doc(db, 'users', userCred.user.uid), {
+
+        // Save profile but do not block redirect on it
+        setDoc(doc(db, 'users', userCred.user.uid), {
           firstName, lastName, email, phone, preference,
-          loyaltyPoints: 0,
-          totalOrders: 0,
-          role: 'customer',
+          loyaltyPoints: 0, totalOrders: 0, role: 'customer',
           createdAt: serverTimestamp()
-        });
-        window.location.href = 'dashboard.html';
+        }).catch(() => {});
+
+        window.location.replace('dashboard.html');
       } catch (err) {
         let msg = 'Sign up failed. Please try again.';
         if (err.code === 'auth/email-already-in-use') msg = 'This email is already registered.';
         if (err.code === 'auth/invalid-email') msg = 'Please enter a valid email address.';
+        if (err.code === 'auth/weak-password') msg = 'Password too short. Try something longer.';
         errorMsg.textContent = msg;
         errorMsg.style.display = 'block';
         btn.disabled = false; btn.textContent = 'Create Account';
       }
     }
   </script>
+
 </body>
 </html>
