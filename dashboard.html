@@ -219,11 +219,86 @@
   .stat-cards { grid-template-columns: repeat(2, 1fr); }
   .menu-grid { grid-template-columns: repeat(2, 1fr); }
 }
+/* MOBILE BOTTOM NAV */
+.mobile-nav {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--dark); z-index: 200;
+  padding: 0.6rem 0 0.8rem;
+  border-top: 1px solid rgba(245,239,230,0.1);
+}
+.mobile-nav-items {
+  display: flex; justify-content: space-around; align-items: center;
+}
+.mobile-nav-item {
+  display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
+  cursor: pointer; padding: 0.3rem 0.8rem;
+  color: rgba(245,239,230,0.4); font-size: 0.6rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  transition: color 0.2s; border: none; background: none;
+  font-family: 'Jost', sans-serif;
+}
+.mobile-nav-item .mn-icon { font-size: 1.3rem; line-height: 1; }
+.mobile-nav-item.active { color: var(--terracotta-light); }
+.mobile-nav-item:hover { color: var(--cream); }
+
+/* MOBILE HEADER */
+.mobile-header {
+  display: none;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 150;
+  background: rgba(245,239,230,0.95); backdrop-filter: blur(10px);
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--cream-dark);
+  align-items: center; justify-content: space-between;
+}
+.mobile-header-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; color: var(--brown); text-decoration: none;
+}
+.mobile-header-logo span { color: var(--terracotta); font-style: italic; }
+.mobile-header-user {
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.mobile-header-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--terracotta); color: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif; font-size: 1rem;
+}
+.mobile-logout {
+  background: none; border: none; font-size: 1.1rem; cursor: pointer;
+}
+
 @media (max-width: 768px) {
-  .sidebar { transform: translateX(-100%); }
-  .main { margin-left: 0; padding: 1.5rem; }
-  .stat-cards { grid-template-columns: 1fr 1fr; }
+  .sidebar { display: none; }
+  .tabs { display: none; }
+  .mobile-nav { display: block; }
+  .mobile-header { display: flex; }
+  .main {
+    margin-left: 0;
+    padding: 5rem 1.2rem 5.5rem;
+  }
+  .main-header {
+    flex-direction: column; align-items: flex-start; gap: 0.3rem;
+    margin-bottom: 1.5rem;
+  }
+  .main-header h1 { font-size: 1.6rem; }
+  .main-date { font-size: 0.75rem; }
+  .stat-cards { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .stat-card { padding: 1rem; }
+  .stat-card-value { font-size: 1.6rem; }
   .form-grid { grid-template-columns: 1fr; }
+  .menu-grid { grid-template-columns: 1fr 1fr; }
+  .loyalty-tiers { grid-template-columns: 1fr; }
+  .card { padding: 1.2rem; }
+  .data-table { font-size: 0.78rem; }
+  .data-table th, .data-table td { padding: 0.6rem 0.5rem; }
+}
+
+@media (max-width: 400px) {
+  .stat-cards { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+  .menu-grid { grid-template-columns: 1fr; }
+  .main { padding: 5rem 1rem 5.5rem; }
 }
 ```
 
@@ -234,6 +309,41 @@
 <div id="loadingScreen">
   <div class="loading-logo">Kassy <em style="color:var(--terracotta);font-style:italic;">Foods</em></div>
 </div>
+
+<!-- MOBILE HEADER -->
+
+<header class="mobile-header">
+  <a href="index.html" class="mobile-header-logo">Kassy <span>Foods</span></a>
+  <div class="mobile-header-user">
+    <div class="mobile-header-avatar" id="mobileAvatar">?</div>
+    <button class="mobile-logout" onclick="handleLogout()" title="Sign out">🚪</button>
+  </div>
+</header>
+
+<!-- MOBILE BOTTOM NAV -->
+
+<nav class="mobile-nav">
+  <div class="mobile-nav-items">
+    <button class="mobile-nav-item active" onclick="showTab('overview')">
+      <span class="mn-icon">🏠</span><span>Home</span>
+    </button>
+    <button class="mobile-nav-item" onclick="showTab('reservations')">
+      <span class="mn-icon">📅</span><span>Reserve</span>
+    </button>
+    <button class="mobile-nav-item" onclick="showTab('orders')">
+      <span class="mn-icon">🍽️</span><span>Orders</span>
+    </button>
+    <button class="mobile-nav-item" onclick="showTab('loyalty')">
+      <span class="mn-icon">⭐</span><span>Loyalty</span>
+    </button>
+    <button class="mobile-nav-item" onclick="showTab('menu')">
+      <span class="mn-icon">📋</span><span>Menu</span>
+    </button>
+    <button class="mobile-nav-item" onclick="showTab('profile')">
+      <span class="mn-icon">👤</span><span>Profile</span>
+    </button>
+  </div>
+</nav>
 
 <!-- SIDEBAR -->
 
@@ -606,6 +716,8 @@
     document.getElementById('sidebarName').textContent = `${userData.firstName} ${userData.lastName}`;
     document.getElementById('sidebarEmail').textContent = userData.email;
     document.getElementById('sidebarAvatar').textContent = (userData.firstName || 'G')[0].toUpperCase();
+    const mobileAv = document.getElementById('mobileAvatar');
+    if (mobileAv) mobileAv.textContent = (userData.firstName || 'G')[0].toUpperCase();
     document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-NG', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
 
     // Stats
@@ -708,11 +820,14 @@
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.querySelectorAll('.mobile-nav-item').forEach(n => n.classList.remove('active'));
     document.getElementById(`tab-${tab}`).classList.add('active');
     const tabs = ['overview','reservations','orders','loyalty','menu','profile'];
     const idx = tabs.indexOf(tab);
     document.querySelectorAll('.tab')[idx]?.classList.add('active');
     document.querySelectorAll('.nav-item')[idx]?.classList.add('active');
+    document.querySelectorAll('.mobile-nav-item')[idx]?.classList.add('active');
+    window.scrollTo(0, 0);
   }
 </script>
 
